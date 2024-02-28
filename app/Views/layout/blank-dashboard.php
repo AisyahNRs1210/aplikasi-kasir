@@ -65,6 +65,14 @@
           flex: 1;
         }
       }
+
+      .wrapper {
+        display:flex;
+      }
+
+      .wrapper button {
+        margin-left:10px;
+      }
      
     </style>
   </head>

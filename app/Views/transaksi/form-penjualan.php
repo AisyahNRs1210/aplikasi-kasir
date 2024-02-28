@@ -45,17 +45,14 @@
         </div>
     </div>
     <div class="row mb-2">
-        <div class="col-sm-3">
+        <div class="col-sm-3 wrapper">
             <button type="submit" class="btn sm btn-primary">Simpan</button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#smallmodal"  href="<?=site_url('form-penjualan');?>">Bayar</button>
             <!-- <button type="submit" class="btn sm btn-danger">Bayar</button> -->
         </div>
         <br/>
     </div>
 </form>
-
- <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#smallmodal" style="float:right;"  href="<?=site_url('form-penjualan');?>"><i class="fa fa-plus-square" style="color: #ffffff;"></i> Tambah</button>
-<a href="/form-penjualan/savePembayaran" class="btn btn-danger"  >
-            <i class="fa fa-plus-money" style="color: #ffffff;"></i> Bayar</a>
 
 
 
