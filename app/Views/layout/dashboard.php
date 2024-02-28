@@ -87,6 +87,7 @@
             </li>
 
             <!-- Master Data -->
+             <?php if(session()->get('role')=='admin') { ?>
             <li class="menu-title">Master Data</li>
                     <li>
                         <a href="<?=site_url('list-user');?>"> <i class="menu-icon ti-user"></i>Pengguna</a>
@@ -95,17 +96,19 @@
                         <a href="<?=site_url('list-supplier'); ?>"> <i class="menu-icon ti-truck"></i>Supplier</a>
                     </li>  -->
             </li>
+            <?php } ?>
           
             <!-- Produk -->
+            
             <li class="menu-title">Produk</li>
-                    <li>
-                        <a href="<?=site_url('list-produk');?>"> <i class="menu-icon ti-bag"></i>Produk</a>
-                    </li>
-                   <li>
+                      <li>
                         <a href="<?=site_url('list-kategori');?>"> <i class="menu-icon ti-bag"></i>Kategori Produk</a>
                     </li>
                    <li>
                         <a href="<?=site_url('list-satuan');?>"> <i class="menu-icon ti-bag"></i>Satuan Produk</a>
+                    </li>
+                    <li>
+                        <a href="<?=site_url('list-produk');?>"> <i class="menu-icon ti-bag"></i>Produk</a>
                     </li>
             </li>
 

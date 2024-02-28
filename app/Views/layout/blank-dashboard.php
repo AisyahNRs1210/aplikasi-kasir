@@ -81,7 +81,7 @@
             
 
             <!-- Master Data -->
-             <!-- <?php if(session()->get('role')=='admin') { ?> -->
+             <?php if(session()->get('role')=='admin') { ?>
             <li class="menu-title">Master Data</li>
                     <li>
                         <a href="<?=site_url('list-user');?>"> <i class="menu-icon ti-user"></i>Pengguna</a>
@@ -90,10 +90,10 @@
                         <a href="<?=site_url('list-supplier'); ?>"> <i class="menu-icon ti-truck"></i>Supplier</a>
                     </li>  -->
             </li>
-              <!-- <?php } ?> -->
+              <?php } ?>
           
             <!-- Produk -->
-            <?php if(session()->get('role')=='admin') { ?>
+           
             <li class="menu-title">Produk</li>
             <li>
                         <a href="<?=site_url('list-kategori');?>"> <i class="menu-icon ti-bag"></i>Kategori Produk</a>
@@ -106,7 +106,7 @@
                     </li>
                    
             </li>
-            <?php } ?>
+            
 
             <!-- Transaksi -->
            <!-- Transaksi -->
