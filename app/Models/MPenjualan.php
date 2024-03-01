@@ -101,4 +101,15 @@ class MPenjualan extends Model
     {
         return $this->countAll(); // Menghitung jumlah semua transaksi penjualan
     }
+
+    public function getPendapatanHariIni()
+    {
+        // Mendapatkan tanggal hari ini
+        $today = date('Y-m-d');
+
+        // Menghitung pendapatan hari ini
+        return $this->where('DATE(tgl_penjualan)', $today)
+                    ->selectSum('grand_total')
+                    ->first();
+    }
 }

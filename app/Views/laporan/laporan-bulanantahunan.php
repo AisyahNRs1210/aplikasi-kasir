@@ -13,8 +13,7 @@
     <h2>Laporan Tahun <?= $tahun ?></h2>
 <?php endif; ?>
 
-<?php if (!empty($detail_penjualan)) : ?>
-    <table id="myTable" class="table table-sm table-striped table-bordered text-center">
+ <table id="myTable" class="table table-sm table-striped table-bordered text-center">
         <thead>
             <tr>
                 <th>No</th>
@@ -25,26 +24,32 @@
                 <th>Total Penjualan</th>
             </tr>
         </thead>
-        <tbody>
-            <?php $no = 1; ?>
-            <?php foreach ($detail_penjualan as $detail) : ?>
-                <tr>
-                    <td><?= $no++ ?></td>
-                    <td><?= $detail['nama_produk'] ?></td>
-                    <td><?= $detail['harga_jual'] ?></td>
-                    <td><?= $detail['harga_beli'] ?></td>
-                    <td><?= $detail['qty'] ?></td>
-                    <td><?= $detail['total_harga'] ?></td>
-                </tr>
-            <?php endforeach; ?>
-            <tr>
-            <td colspan="6">Total Keuntungan : <?= $total_keuntungan ?></td>
-            </tr>
-        </tbody>
-    </table>
-<?php else : ?>
-    <p>Tidak ada data penjualan untuk periode ini.</p>
-<?php endif; ?>
+
+      <?php
+            if(isset($detail_penjualan)) :
+                $html =null;
+                $no = null;
+            foreach($detail_penjualan as $baris) :
+                $no++;
+                $html .='<tr>';
+                $html .='<td>'. $no.'</td>';
+                $html .='<td>'. $baris['nama_produk'].'</td>';
+                $html .='<td align="left">Rp. '.number_format($baris['harga_beli'],0,',','.').'</td>';
+                $html .='<td align="left">Rp. '.number_format($baris['harga_jual'],0,',','.').'</td>';
+                $html .='<td align="left">'.number_format($baris['qty'],0,',','.').'</td>';
+                $html .='<td align="left">Rp. '.number_format($baris['total_harga'],0,',','.').'</td>';
+                $html .='</tr>';
+            endforeach;
+            echo $html;
+       else :
+            echo '<tr><td colspan="6">Tidak ada data penjualan untuk periode ini.</td></tr>';
+            endif;
+        ?>
+
+         <!-- Tambahkan baris untuk total penjualan dan total keuntungan -->
+
+    </table>  
+    <br/>
 
 <?php if ($total_penjualan !== null && $total_keuntungan !== null) : ?>
     <p>Total Penjualan: <?= $total_penjualan ?></p>

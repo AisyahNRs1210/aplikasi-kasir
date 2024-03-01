@@ -93,6 +93,18 @@ class MUser extends Model
         return $this->countAll();
     }
 
+    public function countActiveUsers()
+    {
+        // Mengambil jumlah pengguna yang aktif dari database
+        return $this->where('status', 'aktif')->countAllResults();
+    }
+
+    public function countInactiveUsers()
+    {
+        // Mengambil jumlah pengguna yang tidak aktif dari database
+        return $this->where('status', 'nonaktif')->countAllResults();
+    }
+
 //     public function countActiveUsers() {
 //     // Menghitung jumlah pengguna yang aktif dari database
 //     $this->db->where('status', 'active'); // Misalnya, Anda memiliki kolom status yang menunjukkan status pengguna

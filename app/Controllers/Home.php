@@ -31,6 +31,10 @@ class Home extends BaseController
         $totalUsers = $this->user->countTotalUsers();
         $totalProduk = $this->produk->countTotalProduk();
         $totalKategori = $this->kategori->countTotalKategori();
+        $pendapatanHariIni = $this->penjualan->getPendapatanHariIni();
+        $activeUsers = $this->user->countActiveUsers();
+        $inactiveUsers = $this->user->countInactiveUsers();
+
 
         $data =[
             'totalSales' => $totalSales,
@@ -40,6 +44,9 @@ class Home extends BaseController
             'listProduk' => $this->produk->getAllProduk(),
             'listKategori' => $this->kategori->getAllKategori(),
             'listSatuan' => $this->satuan->getAllSatuan(),
+            'pendapatanHariIni' =>$pendapatanHariIni,
+            'activeUsers' => $activeUsers,
+            'inactiveUsers' => $inactiveUsers
         ];
         return view('layout/dashboard', $data);
     }

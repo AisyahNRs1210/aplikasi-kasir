@@ -82,7 +82,7 @@
       <nav class="navbar navbar-expand-sm navbar-default">
         <div id="main-menu" class="main-menu collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active">
+            <li>
               <a href="<?=site_url('dashboard');?>"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
             </li>
 
@@ -196,9 +196,9 @@
                     <div class="stat-content">
                       <div class="text-left dib">
                         <div class="stat-text">
-                          $<span class="count">70</span>
+                          Rp. <span class="count"><?= $pendapatanHariIni['grand_total'] ?? 0 ?></span>
                         </div>
-                        <div class="stat-heading">pendapatan</div>
+                        <div class="stat-heading">Pendapatan hari ini</div>
                       </div>
                     </div>
                   </div>
@@ -218,7 +218,7 @@
                         <div class="stat-text">
                           <span class="count"><?= $totalSales ?></span>
                         </div> 
-                        <div class="stat-heading">Transaksi</div>
+                        <div class="stat-heading">Transaksi hari ini</div>
                       </div>
                     </div>
                   </div>
@@ -875,35 +875,34 @@
       });
     </script>
 
-    <script>
-      // Ambil data jumlah pengguna yang aktif dan nonaktif dari server atau sesuai kebutuhan Anda
-let activeUsers = 80; // Misalnya, jumlah pengguna yang aktif
-let inactiveUsers = 20; // Misalnya, jumlah pengguna yang nonaktif
+   <script>
+    // Ambil data jumlah pengguna yang aktif dan tidak aktif dari server
+    let activeUsers = <?= $activeUsers ?>;
+    let inactiveUsers = <?= $inactiveUsers ?>;
 
-// Hitung total pengguna
-let totalUsers = activeUsers + inactiveUsers;
+    // Hitung total pengguna
+    let totalUsers = activeUsers + inactiveUsers;
 
-// Hitung persentase pengguna yang aktif dan nonaktif
-let activePercentage = (activeUsers / totalUsers) * 100;
-let inactivePercentage = (inactiveUsers / totalUsers) * 100;
+    // Hitung persentase pengguna yang aktif dan tidak aktif
+    let activePercentage = (activeUsers / totalUsers) * 100;
+    let inactivePercentage = (inactiveUsers / totalUsers) * 100;
 
-// Data untuk grafik pie
-let pieData = {
-    labels: ['Pengguna Aktif', 'Pengguna Tidak Aktif'],
-    datasets: [{
-        data: [activePercentage, inactivePercentage],
-        backgroundColor: ['#36a2eb', '#ff6384'],
-        hoverBackgroundColor: ['#36a2eb', '#ff6384']
-    }]
-};
+    // Data untuk grafik pie
+    let pieData = {
+        labels: ['Pengguna Aktif', 'Pengguna Tidak Aktif'],
+        datasets: [{
+            data: [activePercentage, inactivePercentage],
+            backgroundColor: ['#36a2eb', '#ff6384'],
+            hoverBackgroundColor: ['#36a2eb', '#ff6384']
+        }]
+    };
 
-// Buat grafik pie menggunakan Chart.js
-let ctx = document.getElementById('userStatusChart').getContext('2d');
-let myPieChart = new Chart(ctx, {
-    type: 'pie',
-    data: pieData
-});
-
-    </script>
+    // Buat grafik pie menggunakan Chart.js
+    let ctx = document.getElementById('userStatusChart').getContext('2d');
+    let myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: pieData
+    });
+</script>
   </body>
 </html>

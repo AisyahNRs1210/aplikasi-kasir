@@ -39,7 +39,7 @@
         </div>
         <label class="col-sm-3 col-form-label">Harga Satuan</label>
         <div class="col-sm-3">
-            <input type="text" class="form-control" name="harga_jual" id="harga_jual" width="20"
+            <input type="text" class="form-control uang" name="harga_jual" id="harga_jual" width="20"
                    placeholder="Harga satuan" readonly required/>
             <div class="invalid-feedback">Harga satuan tidak boleh kosong</div>
         </div>
@@ -124,7 +124,7 @@ else: ?>
                         </div>
                         <form method="POST" class="needs-validation" action="/form-penjualan/savePembayaran" novalidate>
                         <div class="modal-body">
-                            <h5 align="center">Total : <?= $totalHarga ?> </h5>
+                            <h5 align="center">Total : Rp. <?= number_format($totalHarga, 0, ',', '.'); ?> </h5>
                         <div class="row mb-2">
                         <label class="col-sm-4 col-form-label">Bayar</label>
                         <div class="col-sm-13">
@@ -157,6 +157,7 @@ else: ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script> -->
 
  
 
@@ -174,6 +175,14 @@ else: ?>
     $('.js-example-basic-multiple').select2();
 });
 </script>
+<!-- 
+    <script>
+        $(document).ready(function(){
+            // Terapkan masker dengan format mata uang rupiah
+            $('.uang').mask('000.000.000.000', {reverse: true});
+            $('.barang').mask('000.000', {reverse: true});
+        });
+    </script> -->
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

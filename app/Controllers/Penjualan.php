@@ -16,6 +16,8 @@ class Penjualan extends BaseController
         //
     }
 
+    
+
      public function get_harga_produk($id_produk) {
     // Ambil harga produk dari database berdasarkan ID produk
     $harga_produk = $this->produk->getHargaById($id_produk);
