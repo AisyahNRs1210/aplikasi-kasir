@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 26, 2024 at 10:27 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.1.25
+-- Host: localhost:3306
+-- Generation Time: Mar 01, 2024 at 05:03 PM
+-- Server version: 8.0.30
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_kasir`
+-- Database: `db_kasiryuzu`
 --
 
 DELIMITER $$
@@ -207,12 +207,12 @@ DELIMITER ;
 --
 
 CREATE TABLE `tbl_detailpenjualan` (
-  `kode_detailpenjualan` int(11) NOT NULL,
-  `kode_penjualan` int(11) NOT NULL,
-  `id_produk` int(11) NOT NULL,
-  `qty` int(11) NOT NULL,
-  `diskon` int(11) DEFAULT NULL,
-  `total_harga` int(11) NOT NULL
+  `kode_detailpenjualan` int NOT NULL,
+  `kode_penjualan` int NOT NULL,
+  `id_produk` int NOT NULL,
+  `qty` int NOT NULL,
+  `diskon` int DEFAULT NULL,
+  `total_harga` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -298,7 +298,14 @@ INSERT INTO `tbl_detailpenjualan` (`kode_detailpenjualan`, `kode_penjualan`, `id
 (81, 29, 13, 2, NULL, 150000),
 (82, 29, 9, 1, NULL, 10000),
 (83, 30, 10, 1, NULL, 24000),
-(84, 30, 9, 1, NULL, 10000);
+(84, 30, 9, 1, NULL, 10000),
+(85, 31, 9, 1, NULL, 10000),
+(86, 31, 13, 1, NULL, 75000),
+(87, 32, 10, 9, NULL, 216000),
+(88, 32, 9, 3, NULL, 30000),
+(89, 33, 9, 1, NULL, 10000),
+(90, 33, 11, 2, NULL, 30000),
+(91, 33, 10, 1, NULL, 24000);
 
 --
 -- Triggers `tbl_detailpenjualan`
@@ -343,8 +350,8 @@ DELIMITER ;
 --
 
 CREATE TABLE `tbl_kategori` (
-  `kode_kategori` int(11) NOT NULL,
-  `nama_kategori` varchar(50) NOT NULL
+  `kode_kategori` int NOT NULL,
+  `nama_kategori` varchar(50) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -365,14 +372,14 @@ INSERT INTO `tbl_kategori` (`kode_kategori`, `nama_kategori`) VALUES
 --
 
 CREATE TABLE `tbl_pembelianbarang` (
-  `kode_pembelian` int(11) NOT NULL,
-  `no_faktur` int(11) NOT NULL,
+  `kode_pembelian` int NOT NULL,
+  `no_faktur` int NOT NULL,
   `tgl_pembelian` date NOT NULL,
-  `kode_barang` int(11) NOT NULL,
-  `id_supplier` int(11) NOT NULL,
-  `jumlah_barang` int(11) NOT NULL,
-  `harga_satuan` int(11) NOT NULL,
-  `total_harga` int(11) NOT NULL
+  `kode_barang` int NOT NULL,
+  `id_supplier` int NOT NULL,
+  `jumlah_barang` int NOT NULL,
+  `harga_satuan` int NOT NULL,
+  `total_harga` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -382,11 +389,11 @@ CREATE TABLE `tbl_pembelianbarang` (
 --
 
 CREATE TABLE `tbl_penjualan` (
-  `kode_penjualan` int(11) NOT NULL,
+  `kode_penjualan` int NOT NULL,
   `tgl_penjualan` datetime NOT NULL,
-  `no_faktur` varchar(100) NOT NULL,
-  `grand_total` int(11) NOT NULL,
-  `email` varchar(255) NOT NULL
+  `no_faktur` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `grand_total` int NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -423,7 +430,10 @@ INSERT INTO `tbl_penjualan` (`kode_penjualan`, `tgl_penjualan`, `no_faktur`, `gr
 (27, '2024-02-27 03:19:56', 'INV-202402270026', 298000, 'ais@gmail.com'),
 (28, '2024-02-27 03:24:55', 'INV-202402270027', 147000, 'ais@gmail.com'),
 (29, '2024-02-27 03:48:00', 'INV-202402270028', 160000, 'ais@gmail.com'),
-(30, '2024-02-27 04:16:44', 'INV-202402270029', 34000, 'ais@gmail.com');
+(30, '2024-02-27 04:16:44', 'INV-202402270029', 34000, 'ais@gmail.com'),
+(31, '2024-03-01 17:12:46', 'INV-202403010030', 85000, 'ais@gmail.com'),
+(32, '2024-03-01 19:26:10', 'INV-202403010031', 246000, 'ais@gmail.com'),
+(33, '2024-03-01 22:37:16', 'INV-202403010032', 64000, 'ais@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -432,14 +442,14 @@ INSERT INTO `tbl_penjualan` (`kode_penjualan`, `tgl_penjualan`, `no_faktur`, `gr
 --
 
 CREATE TABLE `tbl_produk` (
-  `id_produk` int(11) NOT NULL,
-  `kode_produk` varchar(25) NOT NULL,
-  `nama_produk` varchar(255) NOT NULL,
-  `harga_beli` int(11) NOT NULL,
-  `harga_jual` int(11) NOT NULL,
-  `kode_satuan` int(11) NOT NULL,
-  `kode_kategori` int(11) NOT NULL,
-  `stok` int(11) NOT NULL
+  `id_produk` int NOT NULL,
+  `kode_produk` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
+  `nama_produk` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `harga_beli` int NOT NULL,
+  `harga_jual` int NOT NULL,
+  `kode_satuan` int NOT NULL,
+  `kode_kategori` int NOT NULL,
+  `stok` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -447,10 +457,10 @@ CREATE TABLE `tbl_produk` (
 --
 
 INSERT INTO `tbl_produk` (`id_produk`, `kode_produk`, `nama_produk`, `harga_beli`, `harga_jual`, `kode_satuan`, `kode_kategori`, `stok`) VALUES
-(9, 'BRG0001', 'Jepit Rambut', 7000, 10000, 4, 15, 6),
-(10, 'BRG0002', 'Lip Cream Hanasui 06', 23000, 24000, 4, 12, 16),
-(11, 'BRG0003', 'Cermin', 13000, 15000, 4, 15, 13),
-(13, 'BRG0004', 'Vas Bunga', 50000, 75000, 2, 25, 5);
+(9, 'BRG0001', 'Jepit Rambut', 7000, 10000, 4, 15, 1),
+(10, 'BRG0002', 'Lip Cream Hanasui 06', 23000, 24000, 4, 12, 6),
+(11, 'BRG0003', 'Cermin', 13000, 15000, 4, 15, 11),
+(13, 'BRG0004', 'Vas Bunga', 50000, 75000, 2, 25, 4);
 
 -- --------------------------------------------------------
 
@@ -459,8 +469,8 @@ INSERT INTO `tbl_produk` (`id_produk`, `kode_produk`, `nama_produk`, `harga_beli
 --
 
 CREATE TABLE `tbl_satuan` (
-  `kode_satuan` int(11) NOT NULL,
-  `nama_satuan` varchar(50) NOT NULL
+  `kode_satuan` int NOT NULL,
+  `nama_satuan` varchar(50) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -470,7 +480,7 @@ CREATE TABLE `tbl_satuan` (
 INSERT INTO `tbl_satuan` (`kode_satuan`, `nama_satuan`) VALUES
 (2, 'Box'),
 (4, 'pcs'),
-(6, 'Sachet');
+(7, 'Lembar');
 
 -- --------------------------------------------------------
 
@@ -479,10 +489,10 @@ INSERT INTO `tbl_satuan` (`kode_satuan`, `nama_satuan`) VALUES
 --
 
 CREATE TABLE `tbl_supplier` (
-  `id_supplier` int(11) NOT NULL,
-  `nama_supplier` varchar(150) NOT NULL,
-  `alamat_supplier` mediumtext NOT NULL,
-  `wa_supplier` varchar(20) NOT NULL
+  `id_supplier` int NOT NULL,
+  `nama_supplier` varchar(150) COLLATE utf8mb4_general_ci NOT NULL,
+  `alamat_supplier` mediumtext COLLATE utf8mb4_general_ci NOT NULL,
+  `wa_supplier` varchar(20) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -499,11 +509,11 @@ INSERT INTO `tbl_supplier` (`id_supplier`, `nama_supplier`, `alamat_supplier`, `
 --
 
 CREATE TABLE `tbl_user` (
-  `email` varchar(255) NOT NULL,
-  `nama_user` varchar(100) NOT NULL,
-  `password` varchar(60) NOT NULL,
-  `role` enum('admin','petugas') NOT NULL,
-  `status` enum('aktif','nonaktif') NOT NULL
+  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `nama_user` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(60) COLLATE utf8mb4_general_ci NOT NULL,
+  `role` enum('admin','petugas') COLLATE utf8mb4_general_ci NOT NULL,
+  `status` enum('aktif','nonaktif') COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -585,43 +595,43 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_detailpenjualan`
 --
 ALTER TABLE `tbl_detailpenjualan`
-  MODIFY `kode_detailpenjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `kode_detailpenjualan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT for table `tbl_kategori`
 --
 ALTER TABLE `tbl_kategori`
-  MODIFY `kode_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `kode_kategori` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `tbl_pembelianbarang`
 --
 ALTER TABLE `tbl_pembelianbarang`
-  MODIFY `kode_pembelian` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `kode_pembelian` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_penjualan`
 --
 ALTER TABLE `tbl_penjualan`
-  MODIFY `kode_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `kode_penjualan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `tbl_produk`
 --
 ALTER TABLE `tbl_produk`
-  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_produk` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tbl_satuan`
 --
 ALTER TABLE `tbl_satuan`
-  MODIFY `kode_satuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `kode_satuan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_supplier`
 --
 ALTER TABLE `tbl_supplier`
-  MODIFY `id_supplier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_supplier` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
