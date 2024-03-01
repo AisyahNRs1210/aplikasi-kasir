@@ -1,4 +1,4 @@
-# kasir-ci4
+# Yuzushi Gift Store
 Aplikasi ini merupakan contoh project uji kompetensi program keahlian Rekayasa Perangkat Lunak tahun 2023/2024
 
 # Download dan Instalasi
